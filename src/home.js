@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import "./index.css";
+import SearchImg from "./img/search.png";
 
 const ToDoList = () => {
   const [data, setData] = useState([]);
@@ -95,6 +96,14 @@ const ToDoList = () => {
     <div className="todo-container">
       <header className="navbar">
         <h1 className="navbar-title">To-Do List</h1>
+        <div className="search-filter-task">
+          <input
+            type="text"
+            placeholder="Search by title"
+            className="search-input"
+          />
+          <img src={SearchImg} alt="search" className="search-icon" />
+        </div>
         <div className="date-filter">
           <input
             type="date"
@@ -117,7 +126,7 @@ const ToDoList = () => {
       </header>
 
       <form onSubmit={editTask ? updateTask : addTask} className="task-form">
-        <h2>{editTask ? "Edit Task" : "Add New Task"}</h2>
+        <h2 className="form-heading">{editTask ? "Edit Task" : "Add New Task"}</h2>
         <label htmlFor="title">Title</label>
         <input
           type="text"

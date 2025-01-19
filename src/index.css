@@ -6,16 +6,44 @@
 }
 
 
+.todo-container{
+  width: 100%;
+}
+
 
 .navbar {
     display: flex;
     justify-content: space-between;
     align-items: center;
+    width: 100%;
     padding: 15px 20px;
     background-color: #007bff;
     color: white;
   }
+
+  .search-input{
+    width: 100%;
+    height: 100%;
+    border-radius: 5px;
+    padding: 1px 10px;
+  }
+
+  .search-filter-task{
+     width: 500px;
+     height: 40px;
+     position: relative;
+  }
+
+  .search-icon{
+    height: 30px;
+    position: absolute;
+    top: 5px;
+    right: 15px;
+    padding: 2px;
+    cursor: pointer;
+  }
   
+
   .navbar-title {
     font-size: 24px;
     font-weight: bold;
@@ -42,6 +70,13 @@
   }
   
   /* Form Styling */
+
+  .form-heading{
+    text-align: center;
+     padding-bottom: 10px;
+  }
+
+
   .task-form {
     display: flex;
     flex-direction: column;
