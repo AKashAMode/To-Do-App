@@ -6,9 +6,15 @@ import SearchImg from "./img/search.png";
 const ToDoList = () => {
   const [data, setData] = useState([]);
   const [editTask, setEditTask] = useState(null);
-  const [form, setForm] = useState({ title: "", description: "", status: "pending", dueDate: "" });
+  const [form, setForm] = useState({
+    title: "",
+    description: "",
+    status: "pending",
+    dueDate: "",
+  });
   const [startDate, setStartDate] = useState("");
   const [endDate, setEndDate] = useState("");
+  const [searchQuery, setSearchQuery] = useState(""); // for search by title
 
   const fetchTasks = async () => {
     try {
@@ -55,6 +61,8 @@ const ToDoList = () => {
     }
   };
 
+
+
   const addTask = async (e) => {
     e.preventDefault();
     try {
@@ -89,8 +97,17 @@ const ToDoList = () => {
 
   const handleEdit = (task) => {
     setEditTask(task);
-    setForm({ title: task.title, description: task.description, status: task.status, dueDate: task.dueDate });
+    setForm({
+      title: task.title,
+      description: task.description,
+      status: task.status,
+      dueDate: task.dueDate,
+    });
   };
+
+  const filterTasks = data.filter((task)=> 
+    task.title.toLowarCase().includes(searchQuery.toLowarCase())
+  );
 
   return (
     <div className="todo-container">
@@ -100,9 +117,11 @@ const ToDoList = () => {
           <input
             type="text"
             placeholder="Search by title"
+            value={searchQuery}
+            onChange={handleSearchChange}
             className="search-input"
           />
-          <img src={SearchImg} alt="search" className="search-icon" />
+          <img src={SearchImg} alt="search" onClick={handleSearchChange} className="search-icon" />
         </div>
         <div className="date-filter">
           <input
@@ -126,7 +145,9 @@ const ToDoList = () => {
       </header>
 
       <form onSubmit={editTask ? updateTask : addTask} className="task-form">
-        <h2 className="form-heading">{editTask ? "Edit Task" : "Add New Task"}</h2>
+        <h2 className="form-heading">
+          {editTask ? "Edit Task" : "Add New Task"}
+        </h2>
         <label htmlFor="title">Title</label>
         <input
           type="text"
@@ -175,12 +196,18 @@ const ToDoList = () => {
             <p>{task.description}</p>
             <p>Status: {task.status}</p>
             <p>
-              Due Date: {task.dueDate ? new Date(task.dueDate).toLocaleDateString() : "Not Set"}
+              Due Date:{" "}
+              {task.dueDate
+                ? new Date(task.dueDate).toLocaleDateString()
+                : "Not Set"}
             </p>
             <button onClick={() => handleEdit(task)} className="edit-button">
               Edit
             </button>
-            <button onClick={() => deleteTask(task.id)} className="delete-button">
+            <button
+              onClick={() => deleteTask(task.id)}
+              className="delete-button"
+            >
               Delete
             </button>
           </div>
@@ -191,4 +218,3 @@ const ToDoList = () => {
 };
 
 export default ToDoList;
-
